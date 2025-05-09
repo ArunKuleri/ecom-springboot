@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.NotActiveException;
 import java.util.List;
 
 @RestController
@@ -39,8 +38,9 @@ public class ProductController {
     }
 
     @DeleteMapping ("{id}")
-    public GenericProductDto deleteProductById(@PathVariable("id")Long id){
-        return productService.deleteProduct(id);
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id")Long id){
+         return new ResponseEntity<>(productService.deleteProduct(id),
+                 HttpStatus.OK);
     }
 
     @PostMapping
