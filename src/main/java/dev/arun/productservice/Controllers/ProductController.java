@@ -32,15 +32,7 @@ public class ProductController {
                  HttpStatus.OK);
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ExceptionDto> handleNotFoundException(
-            NotFoundException notFoundException
-    ){
-        return new ResponseEntity(
-                new ExceptionDto(HttpStatus.NOT_FOUND,notFoundException.getMessage()),
-                HttpStatus.NOT_FOUND
-        );
-    }
+
 
     @PostMapping
     public GenericProductDto createProduct(@RequestBody GenericProductDto product){
