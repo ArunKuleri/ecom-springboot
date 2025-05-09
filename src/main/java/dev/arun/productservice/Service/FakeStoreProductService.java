@@ -37,28 +37,19 @@ public class FakeStoreProductService implements ProductService{
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<GenericProductDto> response = restTemplate.postForEntity(productRequestBaseUrl,product, GenericProductDto.class);
         return  response.getBody();
-
-
-
     }
 
 
     @Override
     public GenericProductDto getProductById(Long id) throws NotFoundException {
         RestTemplate restTemplate = restTemplateBuilder.build();
-      ResponseEntity<FakeStoreProductDto> response= restTemplate.getForEntity(specificProductRequestUrl, FakeStoreProductDto.class, id);
-
+      ResponseEntity<FakeStoreProductDto> response = restTemplate.getForEntity(specificProductRequestUrl, FakeStoreProductDto.class, id);
       FakeStoreProductDto fakeStoreProductDto = response.getBody();
       if(fakeStoreProductDto == null){
           throw new NotFoundException("Product with id :"+id + "does'nt exist");
-
       }
-
-
 //      response.getStatusCode();
-//
         return convertFakeStoreIntoGenericProduct(fakeStoreProductDto);
-
     }
 
     @Override

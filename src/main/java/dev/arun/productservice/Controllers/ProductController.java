@@ -26,21 +26,20 @@ public class ProductController {
         return productService.getProductById(id);
     }
 
+    @DeleteMapping ("{id}")
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id")Long id){
+         return new ResponseEntity<>(productService.deleteProduct(id),
+                 HttpStatus.OK);
+    }
 
-    @ExceptionHandler(NoClassDefFoundError.class)
-    private ResponseEntity<ExceptionDto> handleNotFoundException(
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNotFoundException(
             NotFoundException notFoundException
     ){
         return new ResponseEntity(
                 new ExceptionDto(HttpStatus.NOT_FOUND,notFoundException.getMessage()),
                 HttpStatus.NOT_FOUND
         );
-    }
-
-    @DeleteMapping ("{id}")
-    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id")Long id){
-         return new ResponseEntity<>(productService.deleteProduct(id),
-                 HttpStatus.OK);
     }
 
     @PostMapping
